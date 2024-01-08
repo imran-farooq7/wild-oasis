@@ -1,13 +1,9 @@
 import styled from "styled-components";
 import GlobalStyles from "./styles/GlobalStyles";
 import Button from "./ui/Button";
+import Heading from "./ui/Heading";
 
 const App = () => {
-	const H1 = styled.h1`
-		font-size: 30px;
-		color: blue;
-	`;
-
 	const StyledApp = styled.div`
 		background: orangered;
 		padding: 1.2rem 1.6rem;
@@ -16,7 +12,9 @@ const App = () => {
 		<>
 			<GlobalStyles />
 			<StyledApp>
-				<H1>Wild Oasis</H1>
+				<Heading as="h1">Wild Oasis</Heading>
+				<Heading as="h2">Form</Heading>
+				<Heading as="h3">Check in</Heading>
 				<Button>Click Me</Button>
 			</StyledApp>
 		</>
