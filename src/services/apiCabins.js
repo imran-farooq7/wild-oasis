@@ -5,5 +5,5 @@ export const getCabins = async () => {
 	if (error) {
 		throw new Error();
 	}
-	console.log(cabins, "cabins from api");
+	return cabins;
 };
