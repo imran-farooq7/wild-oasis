@@ -13,6 +13,7 @@ import AppLayout from "./ui/AppLayout.jsx";
 import GlobalStyles from "./styles/GlobalStyles.js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -69,5 +70,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 			<GlobalStyles />
 			<RouterProvider router={router} />
 		</QueryClientProvider>
+		<Toaster />
 	</React.StrictMode>
 );
