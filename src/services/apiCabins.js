@@ -14,3 +14,14 @@ export const deleteCabins = async (id) => {
 	}
 	return data;
 };
+
+export const addCabins = async (newCabin) => {
+	const { data, error } = await supabase
+		.from("cabins")
+		.insert([newCabin])
+		.select();
+	if (error) {
+		throw new Error("Cabin can't delete right now");
+	}
+	return data;
+};
