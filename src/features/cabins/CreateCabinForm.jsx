@@ -57,25 +57,53 @@ function CreateCabinForm() {
 			toast.success("cabin has been created successfully");
 		},
 	});
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, getValues, formState } = useForm();
+	const { errors } = formState;
 	const onSubmit = (data) => {
 		mutate(data);
 	};
+	console.log(errors);
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)}>
 			<FormRow>
 				<Label htmlFor="name">Cabin name</Label>
-				<Input type="text" id="name" {...register("name")} />
+				<Input
+					type="text"
+					id="name"
+					{...register("name", {
+						required: "This field is required",
+					})}
+				/>
+				{errors?.name?.message && <Error>{errors?.name?.message}</Error>}
 			</FormRow>
 
 			<FormRow>
 				<Label htmlFor="maxCapacity">Maximum capacity</Label>
-				<Input type="number" id="maxCapacity" {...register("maxCapacity")} />
+				<Input
+					type="number"
+					id="maxCapacity"
+					{...register("maxCapacity", {
+						required: "this field is required",
+						min: {
+							value: 1,
+							message: "Capacity must be greater than 0",
+						},
+					})}
+				/>
+				{errors?.maxCapacity?.message && (
+					<Error>{errors?.maxCapacity?.message}</Error>
+				)}
 			</FormRow>
 
 			<FormRow>
 				<Label htmlFor="regularPrice">Regular price</Label>
-				<Input type="number" id="regularPrice" {...register("regularPrice")} />
+				<Input
+					type="number"
+					id="regularPrice"
+					{...register("regularPrice", {
+						required: "this field is required",
+					})}
+				/>
 			</FormRow>
 
 			<FormRow>
@@ -84,7 +112,12 @@ function CreateCabinForm() {
 					type="number"
 					id="discount"
 					defaultValue={0}
-					{...register("discount")}
+					{...register("discount", {
+						required: "this field is required",
+						validate: (value) =>
+							value <= getValues().regularPrice ||
+							"Discount should be a less than Price",
+					})}
 				/>
 			</FormRow>
 
@@ -94,7 +127,9 @@ function CreateCabinForm() {
 					type="number"
 					id="description"
 					defaultValue=""
-					{...register("description")}
+					{...register("description", {
+						required: "this field is required",
+					})}
 				/>
 			</FormRow>
 
